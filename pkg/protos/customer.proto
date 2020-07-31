@@ -1,8 +1,8 @@
 syntax="proto3";
 
-package protos;
+package customer;
 
-option go_package = "pkg/protos";
+option go_package = "pkg/customer";
 
 message Customer 
 {	

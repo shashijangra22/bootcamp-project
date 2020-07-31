@@ -1,8 +1,8 @@
 syntax="proto3";
 
-package protos;
+package restaurant;
 
-option go_package = "pkg/protos";
+option go_package = "pkg/restaurant";
 
 message Item{
     string Name=1;
@@ -26,7 +26,7 @@ message NoParamRequest{
 
 }
 
-service CustomerService {
+service RestaurantService {
     rpc AddRestaurant (Restaurant) returns (Restaurant) {}
 	rpc GetRestaurants (NoParamRequest) returns (stream Restaurant) {}
 	rpc GetRestaurant (Request) returns (Restaurant) {}

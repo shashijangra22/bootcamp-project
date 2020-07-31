@@ -1,12 +1,17 @@
 package main
 
 import (
+	"MyApp/pkg/customer"
+	"MyApp/pkg/order"
+	"MyApp/pkg/restaurant"
 	"fmt"
 	"log"
 	"net"
 
 	"google.golang.org/grpc"
 )
+
+type server struct{}
 
 func main() {
 	// fire the gRPC Server
@@ -20,7 +25,9 @@ func main() {
 
 	s := grpc.NewServer()
 
-	// orderpb.RegisterQueryServiceServer(s, &server{})
+	customer.RegisterCustomerServiceServer(s, &server{})
+	order.RegisterOrderServiceServer(s, &server{})
+	restaurant.RegisterRestaurantServiceServer(s, &server{})
 
 	if s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve %v", err)
