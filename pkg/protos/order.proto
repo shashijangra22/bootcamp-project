@@ -1,0 +1,33 @@
+syntax="proto3";
+
+package protos;
+
+option go_package = "pkg/protos";
+
+message Item{
+    string Name=1;
+    float Price=2;
+}
+
+message Order {
+    int64 ID = 1;
+	int64 C_id = 2;
+	string R_Id = 3;
+	repeated Item ItemLine = 4;
+	float Price = 5;
+	int64 Discount = 7;
+}
+
+message Request{
+	int64 ID = 1;
+}
+
+message NoParamRequest{
+
+}
+
+service CustomerService {
+    rpc AddOrder (Order) returns (Order) {}
+	rpc GetOrders (NoParamRequest) returns (stream Order) {}
+	rpc GetOrder (Request) returns (Order) {}
+}

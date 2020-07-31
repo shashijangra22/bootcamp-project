@@ -1,0 +1,33 @@
+syntax="proto3";
+
+package protos;
+
+option go_package = "pkg/protos";
+
+message Item{
+    string Name=1;
+    float Price=2;
+}
+
+message Restaurant {
+    int64 ID = 1;
+    string Name = 2;
+    string Online = 3;
+    repeated Item ItemLine = 4;
+    float Rating = 5;
+    string Category = 6;
+}
+
+message Request{
+	int64 ID = 1;
+}
+
+message NoParamRequest{
+
+}
+
+service CustomerService {
+    rpc AddRestaurant (Restaurant) returns (Restaurant) {}
+	rpc GetRestaurants (NoParamRequest) returns (stream Restaurant) {}
+	rpc GetRestaurant (Request) returns (Restaurant) {}
+}

@@ -1,0 +1,27 @@
+syntax="proto3";
+
+package protos;
+
+option go_package = "pkg/protos";
+
+message Customer 
+{	
+	int64 ID = 1;
+	string Name = 2;
+	string Phone = 3;
+	string Addr = 4;
+}
+
+message Request{
+	int64 ID = 1;
+}
+
+message NoParamRequest{
+
+}
+
+service CustomerService {
+	rpc AddCustomer (Customer) returns (Customer) {}
+	rpc GetCustomers (NoParamRequest) returns (stream Customer) {}
+	rpc GetCustomer (Request) returns (Customer) {}
+}
