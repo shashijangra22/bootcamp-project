@@ -48,12 +48,15 @@ func main() {
 	apiRouter.GET("/", Index)
 
 	apiRouter.GET("/orders", order.GetAll)
+	apiRouter.GET("/order/:id", order.GetOne)
 	// apiRouter.POST("/order", order.Add)
 
 	apiRouter.GET("/customers", customer.GetAll)
+	apiRouter.GET("/customer/:id", customer.GetOne)
 	// apiRouter.POST("/customer", customer.Add)
 
 	apiRouter.GET("/restaurants", restaurant.GetAll)
+	apiRouter.GET("/restaurant/:id", restaurant.GetOne)
 	// apiRouter.POST("/restaurant", restaurant.Add)
 
 	router.Run("localhost:9001")

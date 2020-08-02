@@ -16,7 +16,7 @@ message Customers{
 	repeated Customer customers=1;
 }
 
-message Request{
+message IDRequest{
 	int64 ID = 1;
 }
 
@@ -27,5 +27,5 @@ message NoParamRequest{
 service CustomerService {
 	// rpc AddCustomer (Customer) returns (Customer) {}
 	rpc GetCustomers (NoParamRequest) returns (Customers) {}
-	// rpc GetCustomer (Request) returns (Customer) {}
+	rpc GetCustomer (IDRequest) returns (Customer) {}
 }

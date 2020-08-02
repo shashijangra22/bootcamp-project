@@ -12,6 +12,38 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/expression"
 )
 
+func GetOne(db *dynamodb.DynamoDB, id int64) *order.Order {
+	condition := expression.Key("ID").Equal(expression.Value(id))
+	proj := expression.NamesList(expression.Name("ID"), expression.Name("C_ID"), expression.Name("R_ID"), expression.Name("ItemLine"), expression.Name("Price"), expression.Name("Discount"))
+	expr, err := expression.NewBuilder().WithKeyCondition(condition).WithProjection(proj).Build()
+	if err != nil {
+		fmt.Println("Got error building expression for getting specific Order")
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	params := &dynamodb.QueryInput{
+		ExpressionAttributeNames:  expr.Names(),
+		ExpressionAttributeValues: expr.Values(),
+		KeyConditionExpression:    expr.KeyCondition(),
+		ProjectionExpression:      expr.Projection(),
+		TableName:                 aws.String("orders"),
+	}
+	res, err := db.Query(params)
+	var orderDetails []Models.Order
+	var ord *order.Order
+	_ = dynamodbattribute.UnmarshalListOfMaps(res.Items, &orderDetails)
+
+	if len(orderDetails) == 1 {
+		orderItem := orderDetails[0]
+		var itemline []*order.Item
+		for _, item := range orderItem.ItemLine {
+			itemline = append(itemline, &order.Item{Name: item.Name, Price: item.Price})
+		}
+		ord = &order.Order{ID: orderItem.ID, C_ID: orderItem.C_ID, R_ID: orderItem.R_ID, ItemLine: itemline, Price: orderItem.Price, Discount: orderItem.Discount}
+	}
+	return ord
+}
+
 func GetAll(db *dynamodb.DynamoDB) []*order.Order {
 	var allOrders []*order.Order
 	// Create the Expression to fill the input struct with.

@@ -147,7 +147,7 @@ func (x *Customers) GetCustomers() []*Customer {
 	return nil
 }
 
-type Request struct {
+type IDRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -155,8 +155,8 @@ type Request struct {
 	ID int64 `protobuf:"varint,1,opt,name=ID,proto3" json:"ID,omitempty"`
 }
 
-func (x *Request) Reset() {
-	*x = Request{}
+func (x *IDRequest) Reset() {
+	*x = IDRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_pkg_protos_customer_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -164,13 +164,13 @@ func (x *Request) Reset() {
 	}
 }
 
-func (x *Request) String() string {
+func (x *IDRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Request) ProtoMessage() {}
+func (*IDRequest) ProtoMessage() {}
 
-func (x *Request) ProtoReflect() protoreflect.Message {
+func (x *IDRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_pkg_protos_customer_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -182,12 +182,12 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Request.ProtoReflect.Descriptor instead.
-func (*Request) Descriptor() ([]byte, []int) {
+// Deprecated: Use IDRequest.ProtoReflect.Descriptor instead.
+func (*IDRequest) Descriptor() ([]byte, []int) {
 	return file_pkg_protos_customer_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *Request) GetID() int64 {
+func (x *IDRequest) GetID() int64 {
 	if x != nil {
 		return x.ID
 	}
@@ -247,16 +247,20 @@ var file_pkg_protos_customer_proto_rawDesc = []byte{
 	0x72, 0x73, 0x12, 0x30, 0x0a, 0x09, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x73, 0x18,
 	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x12, 0x2e, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72,
 	0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x52, 0x09, 0x63, 0x75, 0x73, 0x74, 0x6f,
-	0x6d, 0x65, 0x72, 0x73, 0x22, 0x19, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12,
-	0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49, 0x44, 0x22,
-	0x10, 0x0a, 0x0e, 0x4e, 0x6f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x32, 0x52, 0x0a, 0x0f, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x53, 0x65, 0x72,
-	0x76, 0x69, 0x63, 0x65, 0x12, 0x3f, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x43, 0x75, 0x73, 0x74, 0x6f,
-	0x6d, 0x65, 0x72, 0x73, 0x12, 0x18, 0x2e, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x2e,
-	0x4e, 0x6f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13,
-	0x2e, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d,
-	0x65, 0x72, 0x73, 0x22, 0x00, 0x42, 0x0e, 0x5a, 0x0c, 0x70, 0x6b, 0x67, 0x2f, 0x63, 0x75, 0x73,
-	0x74, 0x6f, 0x6d, 0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6d, 0x65, 0x72, 0x73, 0x22, 0x1b, 0x0a, 0x09, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x12, 0x0e, 0x0a, 0x02, 0x49, 0x44, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x49,
+	0x44, 0x22, 0x10, 0x0a, 0x0e, 0x4e, 0x6f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x32, 0x8c, 0x01, 0x0a, 0x0f, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72,
+	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x3f, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x43, 0x75,
+	0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x73, 0x12, 0x18, 0x2e, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d,
+	0x65, 0x72, 0x2e, 0x4e, 0x6f, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x13, 0x2e, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x2e, 0x43, 0x75, 0x73,
+	0x74, 0x6f, 0x6d, 0x65, 0x72, 0x73, 0x22, 0x00, 0x12, 0x38, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x43,
+	0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x12, 0x13, 0x2e, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d,
+	0x65, 0x72, 0x2e, 0x49, 0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x12, 0x2e, 0x63,
+	0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72, 0x2e, 0x43, 0x75, 0x73, 0x74, 0x6f, 0x6d, 0x65, 0x72,
+	0x22, 0x00, 0x42, 0x0e, 0x5a, 0x0c, 0x70, 0x6b, 0x67, 0x2f, 0x63, 0x75, 0x73, 0x74, 0x6f, 0x6d,
+	0x65, 0x72, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -275,15 +279,17 @@ var file_pkg_protos_customer_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_pkg_protos_customer_proto_goTypes = []interface{}{
 	(*Customer)(nil),       // 0: customer.Customer
 	(*Customers)(nil),      // 1: customer.Customers
-	(*Request)(nil),        // 2: customer.Request
+	(*IDRequest)(nil),      // 2: customer.IDRequest
 	(*NoParamRequest)(nil), // 3: customer.NoParamRequest
 }
 var file_pkg_protos_customer_proto_depIdxs = []int32{
 	0, // 0: customer.Customers.customers:type_name -> customer.Customer
 	3, // 1: customer.CustomerService.GetCustomers:input_type -> customer.NoParamRequest
-	1, // 2: customer.CustomerService.GetCustomers:output_type -> customer.Customers
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
+	2, // 2: customer.CustomerService.GetCustomer:input_type -> customer.IDRequest
+	1, // 3: customer.CustomerService.GetCustomers:output_type -> customer.Customers
+	0, // 4: customer.CustomerService.GetCustomer:output_type -> customer.Customer
+	3, // [3:5] is the sub-list for method output_type
+	1, // [1:3] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
 	1, // [1:1] is the sub-list for extension extendee
 	0, // [0:1] is the sub-list for field type_name
@@ -320,7 +326,7 @@ func file_pkg_protos_customer_proto_init() {
 			}
 		}
 		file_pkg_protos_customer_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Request); i {
+			switch v := v.(*IDRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -378,6 +384,7 @@ const _ = grpc.SupportPackageIsVersion6
 type CustomerServiceClient interface {
 	// rpc AddCustomer (Customer) returns (Customer) {}
 	GetCustomers(ctx context.Context, in *NoParamRequest, opts ...grpc.CallOption) (*Customers, error)
+	GetCustomer(ctx context.Context, in *IDRequest, opts ...grpc.CallOption) (*Customer, error)
 }
 
 type customerServiceClient struct {
@@ -397,10 +404,20 @@ func (c *customerServiceClient) GetCustomers(ctx context.Context, in *NoParamReq
 	return out, nil
 }
 
+func (c *customerServiceClient) GetCustomer(ctx context.Context, in *IDRequest, opts ...grpc.CallOption) (*Customer, error) {
+	out := new(Customer)
+	err := c.cc.Invoke(ctx, "/customer.CustomerService/GetCustomer", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CustomerServiceServer is the server API for CustomerService service.
 type CustomerServiceServer interface {
 	// rpc AddCustomer (Customer) returns (Customer) {}
 	GetCustomers(context.Context, *NoParamRequest) (*Customers, error)
+	GetCustomer(context.Context, *IDRequest) (*Customer, error)
 }
 
 // UnimplementedCustomerServiceServer can be embedded to have forward compatible implementations.
@@ -409,6 +426,9 @@ type UnimplementedCustomerServiceServer struct {
 
 func (*UnimplementedCustomerServiceServer) GetCustomers(context.Context, *NoParamRequest) (*Customers, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCustomers not implemented")
+}
+func (*UnimplementedCustomerServiceServer) GetCustomer(context.Context, *IDRequest) (*Customer, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCustomer not implemented")
 }
 
 func RegisterCustomerServiceServer(s *grpc.Server, srv CustomerServiceServer) {
@@ -433,6 +453,24 @@ func _CustomerService_GetCustomers_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CustomerService_GetCustomer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CustomerServiceServer).GetCustomer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/customer.CustomerService/GetCustomer",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CustomerServiceServer).GetCustomer(ctx, req.(*IDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _CustomerService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "customer.CustomerService",
 	HandlerType: (*CustomerServiceServer)(nil),
@@ -440,6 +478,10 @@ var _CustomerService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCustomers",
 			Handler:    _CustomerService_GetCustomers_Handler,
+		},
+		{
+			MethodName: "GetCustomer",
+			Handler:    _CustomerService_GetCustomer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

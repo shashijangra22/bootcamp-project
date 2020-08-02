@@ -12,6 +12,33 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/expression"
 )
 
+func GetOne(db *dynamodb.DynamoDB, id int64) *customer.Customer {
+	condition := expression.Key("ID").Equal(expression.Value(id))
+	proj := expression.NamesList(expression.Name("ID"), expression.Name("Name"), expression.Name("Address"), expression.Name("Phone"))
+	expr, err := expression.NewBuilder().WithKeyCondition(condition).WithProjection(proj).Build()
+	if err != nil {
+		fmt.Println("Got error building expression for getting specific Customer")
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	params := &dynamodb.QueryInput{
+		ExpressionAttributeNames:  expr.Names(),
+		ExpressionAttributeValues: expr.Values(),
+		KeyConditionExpression:    expr.KeyCondition(),
+		ProjectionExpression:      expr.Projection(),
+		TableName:                 aws.String("customers"),
+	}
+	res, err := db.Query(params)
+	var customerDetails []Models.Customer
+	_ = dynamodbattribute.UnmarshalListOfMaps(res.Items, &customerDetails)
+	var cst *customer.Customer
+	if len(customerDetails) == 1 {
+		customerItem := customerDetails[0]
+		cst = &customer.Customer{ID: customerItem.ID, Name: customerItem.Name, Address: customerItem.Address, Phone: customerItem.Phone}
+	}
+	return cst
+}
+
 func GetAll(db *dynamodb.DynamoDB) []*customer.Customer {
 	var allCustomers []*customer.Customer
 	// Create the Expression to fill the input struct with.

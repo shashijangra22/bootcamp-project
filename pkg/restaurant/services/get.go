@@ -12,6 +12,38 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/expression"
 )
 
+func GetOne(db *dynamodb.DynamoDB, id int64) *restaurant.Restaurant {
+	condition := expression.Key("ID").Equal(expression.Value(id))
+	proj := expression.NamesList(expression.Name("ID"), expression.Name("Name"), expression.Name("Menu"), expression.Name("Rating"), expression.Name("Category"))
+	expr, err := expression.NewBuilder().WithKeyCondition(condition).WithProjection(proj).Build()
+	if err != nil {
+		fmt.Println("Got error building expression for getting specific Restaurant")
+		fmt.Println(err.Error())
+		os.Exit(1)
+	}
+	params := &dynamodb.QueryInput{
+		ExpressionAttributeNames:  expr.Names(),
+		ExpressionAttributeValues: expr.Values(),
+		KeyConditionExpression:    expr.KeyCondition(),
+		ProjectionExpression:      expr.Projection(),
+		TableName:                 aws.String("restaurants"),
+	}
+	res, err := db.Query(params)
+	var restaurantDetails []Models.Restaurant
+	var rest *restaurant.Restaurant
+	_ = dynamodbattribute.UnmarshalListOfMaps(res.Items, &restaurantDetails)
+
+	if len(restaurantDetails) == 1 {
+		restItem := restaurantDetails[0]
+		var menu []*restaurant.Item
+		for _, item := range restItem.Menu {
+			menu = append(menu, &restaurant.Item{Name: item.Name, Price: item.Price})
+		}
+		rest = &restaurant.Restaurant{ID: restItem.ID, Name: restItem.Name, Menu: menu, Online: restItem.Online, Rating: restItem.Rating, Category: restItem.Category}
+	}
+	return rest
+}
+
 func GetAll(db *dynamodb.DynamoDB) []*restaurant.Restaurant {
 	var allRestaurants []*restaurant.Restaurant
 	// Create the Expression to fill the input struct with.

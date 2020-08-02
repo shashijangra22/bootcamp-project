@@ -18,7 +18,7 @@ message Order {
 	int64 Discount = 7;
 }
 
-message Request{
+message IDRequest{
 	int64 ID = 1;
 }
 
@@ -33,5 +33,5 @@ message Orders{
 service OrderService {
     // rpc AddOrder (Order) returns (Order) {}
 	rpc GetOrders (NoParamRequest) returns (Orders) {}
-	// rpc GetOrder (Request) returns (Order) {}
+	rpc GetOrder (IDRequest) returns (Order) {}
 }

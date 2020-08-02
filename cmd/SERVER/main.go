@@ -22,11 +22,25 @@ type server struct{}
 
 var DB *dynamodb.DynamoDB
 
+func (*server) GetCustomer(ctx context.Context, req *customer.IDRequest) (*customer.Customer, error) {
+	fmt.Println("GetCustomer is called... ")
+	id := req.GetID()
+	res := CustomerServices.GetOne(DB, id)
+	return res, nil
+}
+
 // fetch customers from db and give it as response to client
 func (*server) GetCustomers(ctx context.Context, req *customer.NoParamRequest) (*customer.Customers, error) {
 	fmt.Println("GetCustomers is called... ")
 	allCustomers := CustomerServices.GetAll(DB)
 	res := &customer.Customers{Customers: allCustomers}
+	return res, nil
+}
+
+func (*server) GetOrder(ctx context.Context, req *order.IDRequest) (*order.Order, error) {
+	fmt.Println("GetOrder Function called... ")
+	id := req.GetID()
+	res := OrderServices.GetOne(DB, id)
 	return res, nil
 }
 
@@ -37,8 +51,15 @@ func (*server) GetOrders(ctx context.Context, req *order.NoParamRequest) (*order
 	return res, nil
 }
 
+func (*server) GetRestaurant(ctx context.Context, req *restaurant.IDRequest) (*restaurant.Restaurant, error) {
+	fmt.Println("GetRestaurant Function called... ")
+	id := req.GetID()
+	res := RestaurantServices.GetOne(DB, id)
+	return res, nil
+}
+
 func (*server) GetRestaurants(ctx context.Context, req *restaurant.NoParamRequest) (*restaurant.Restaurants, error) {
-	fmt.Println("GetOrders is called...")
+	fmt.Println("GetRestaurants is called...")
 	allRestaurants := RestaurantServices.GetAll(DB)
 	res := &restaurant.Restaurants{Restaurants: allRestaurants}
 	return res, nil

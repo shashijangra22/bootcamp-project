@@ -22,7 +22,7 @@ message Restaurants{
     repeated Restaurant restaurants=1;
 }
 
-message Request{
+message IDRequest{
 	int64 ID = 1;
 }
 
@@ -33,5 +33,5 @@ message NoParamRequest{
 service RestaurantService {
     // rpc AddRestaurant (Restaurant) returns (Restaurant) {}
 	rpc GetRestaurants (NoParamRequest) returns (Restaurants) {}
-	// rpc GetRestaurant (Request) returns (Restaurant) {}
+	rpc GetRestaurant (IDRequest) returns (Restaurant) {}
 }
