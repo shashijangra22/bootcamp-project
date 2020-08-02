@@ -5,6 +5,8 @@ import (
 	CustomerServices "MyApp/pkg/customer/services"
 	"MyApp/pkg/order"
 	OrderServices "MyApp/pkg/order/services"
+	"MyApp/pkg/restaurant"
+	RestaurantServices "MyApp/pkg/restaurant/services"
 	"context"
 	"fmt"
 	"log"
@@ -35,27 +37,30 @@ func (*server) GetOrders(ctx context.Context, req *order.NoParamRequest) (*order
 	return res, nil
 }
 
+func (*server) GetRestaurants(ctx context.Context, req *restaurant.NoParamRequest) (*restaurant.Restaurants, error) {
+	fmt.Println("GetOrders is called...")
+	allRestaurants := RestaurantServices.GetAll(DB)
+	res := &restaurant.Restaurants{Restaurants: allRestaurants}
+	return res, nil
+}
+
 func main() {
 	// fire the gRPC Server
 	fmt.Println("Hello from grpc server.")
-
 	lis, err := net.Listen("tcp", "0.0.0.0:5051")
-
 	if err != nil {
 		log.Fatalf("Sorry failed to load server %v:", err)
 	}
-
 	sess := session.Must(session.NewSession(&aws.Config{
 		Endpoint: aws.String("http://localhost:8000"),
 		Region:   aws.String("us-east-1"),
 	}))
 	DB = dynamodb.New(sess)
-
 	s := grpc.NewServer()
 
 	customer.RegisterCustomerServiceServer(s, &server{})
 	order.RegisterOrderServiceServer(s, &server{})
-	// restaurant.RegisterRestaurantServiceServer(s, &server{})
+	restaurant.RegisterRestaurantServiceServer(s, &server{})
 
 	if s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve %v", err)

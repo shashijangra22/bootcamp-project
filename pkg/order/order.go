@@ -8,7 +8,7 @@ import (
 
 var OSC OrderServiceClient
 
-// To get all the orders
+// client call to get all the orders
 func GetAll(c *gin.Context) {
 	req := &NoParamRequest{}
 	res, err := OSC.GetOrders(c, req)

@@ -12,10 +12,14 @@ message Item{
 message Restaurant {
     int64 ID = 1;
     string Name = 2;
-    string Online = 3;
-    repeated Item ItemLine = 4;
+    bool Online = 3;
+    repeated Item Menu = 4;
     float Rating = 5;
     string Category = 6;
+}
+
+message Restaurants{
+    repeated Restaurant restaurants=1;
 }
 
 message Request{
@@ -27,7 +31,7 @@ message NoParamRequest{
 }
 
 service RestaurantService {
-    rpc AddRestaurant (Restaurant) returns (Restaurant) {}
-	rpc GetRestaurants (NoParamRequest) returns (stream Restaurant) {}
-	rpc GetRestaurant (Request) returns (Restaurant) {}
+    // rpc AddRestaurant (Restaurant) returns (Restaurant) {}
+	rpc GetRestaurants (NoParamRequest) returns (Restaurants) {}
+	// rpc GetRestaurant (Request) returns (Restaurant) {}
 }

@@ -4,6 +4,7 @@ import (
 	"MyApp/pkg/auth"
 	"MyApp/pkg/customer"
 	"MyApp/pkg/order"
+	"MyApp/pkg/restaurant"
 	"fmt"
 	"log"
 	"net/http"
@@ -34,7 +35,7 @@ func main() {
 
 	customer.CSC = customer.NewCustomerServiceClient(conn)
 	order.OSC = order.NewOrderServiceClient(conn)
-	// restaurant.RSC = restaurant.NewRestaurantServiceClient(conn)
+	restaurant.RSC = restaurant.NewRestaurantServiceClient(conn)
 
 	router := gin.Default()
 
@@ -52,7 +53,7 @@ func main() {
 	apiRouter.GET("/customers", customer.GetAll)
 	// apiRouter.POST("/customer", customer.Add)
 
-	// apiRouter.GET("/restaurants", restaurant.GetAll)
+	apiRouter.GET("/restaurants", restaurant.GetAll)
 	// apiRouter.POST("/restaurant", restaurant.Add)
 
 	router.Run("localhost:9001")
