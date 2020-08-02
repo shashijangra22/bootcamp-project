@@ -20,12 +20,20 @@ tables:
 # rule to generate stub code from proto files
 protos:
 	protoc $(PROTO1) --go_out=plugins=grpc:.
-	protoc $(PROTO2) --go_out=plugins=grpc:.
-	protoc $(PROTO3) --go_out=plugins=grpc:.
+	# protoc $(PROTO2) --go_out=plugins=grpc:.
+	# protoc $(PROTO3) --go_out=plugins=grpc:.
 
 # rule to populate DB with sample data
 populate:
 	go run cmd/DB/main.go assets/sample_data
+
+# rule to run gin-API-Client
+client:
+	go run cmd/GIN-CLIENT/main.go
+
+# rule to run gRPC-Server
+server:
+	go run cmd/SERVER/main.go
 
 # rule to list all tables in DB
 list-tables:

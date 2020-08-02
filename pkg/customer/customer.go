@@ -8,7 +8,7 @@ import (
 
 var CSC CustomerServiceClient
 
-// To get all the customers
+// client call to get all the customers
 func GetAll(c *gin.Context) {
 	req := &NoParamRequest{}
 	res, err := CSC.GetCustomers(c, req)
@@ -18,7 +18,7 @@ func GetAll(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"response": res.DummyRes})
+	c.JSON(http.StatusOK, gin.H{"_": res.Customers})
 }
 
 // To add new customer

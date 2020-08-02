@@ -26,8 +26,12 @@ message NoParamRequest{
 
 }
 
+message Orders{
+	repeated Order orders=1;
+}
+
 service OrderService {
     // rpc AddOrder (Order) returns (Order) {}
-	rpc GetOrders (NoParamRequest) returns (stream Order) {}
+	rpc GetOrders (NoParamRequest) returns (Orders) {}
 	// rpc GetOrder (Request) returns (Order) {}
 }

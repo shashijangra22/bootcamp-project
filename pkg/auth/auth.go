@@ -26,13 +26,13 @@ func VerifyUser(c *gin.Context) {
 
 	token, err := ParseTokenFromHeader(c.Request)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		return
 	}
 	_, err = VerifyToken(token)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": err.Error()})
 	}
-	c.Next()
 }
 
 func VerifyToken(token *jwt.Token) (string, error) {
@@ -72,21 +72,21 @@ func ParseTokenFromHeader(r *http.Request) (*jwt.Token, error) {
 func Login(c *gin.Context) {
 	var loginReq LoginRequest
 	if err := c.ShouldBindJSON(&loginReq); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid Payload"})
+		c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{"error": "Invalid Payload"})
 		return
 	}
 
 	if loginReq.Username == adminUsername && loginReq.Password == adminPassword {
 		token, err := CreateToken(loginReq.Username)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, err.Error())
+			c.AbortWithStatusJSON(http.StatusInternalServerError, err.Error())
 			return
 		}
 		c.JSON(http.StatusOK, gin.H{"Token": token})
 		return
 	}
 
-	c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid Payload"})
+	c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Invalid Payload"})
 }
 
 func CreateToken(username string) (string, error) {
