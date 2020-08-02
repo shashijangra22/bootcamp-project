@@ -27,7 +27,7 @@ message NoParamRequest{
 }
 
 service OrderService {
-    rpc AddOrder (Order) returns (Order) {}
+    // rpc AddOrder (Order) returns (Order) {}
 	rpc GetOrders (NoParamRequest) returns (stream Order) {}
-	rpc GetOrder (Request) returns (Order) {}
+	// rpc GetOrder (Request) returns (Order) {}
 }

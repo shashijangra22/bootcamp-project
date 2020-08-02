@@ -9,7 +9,7 @@ message Customer
 	int64 ID = 1;
 	string Name = 2;
 	string Phone = 3;
-	string Addr = 4;
+	string Address = 4;
 }
 
 message Request{
@@ -21,7 +21,7 @@ message NoParamRequest{
 }
 
 service CustomerService {
-	rpc AddCustomer (Customer) returns (Customer) {}
+	// rpc AddCustomer (Customer) returns (Customer) {}
 	rpc GetCustomers (NoParamRequest) returns (stream Customer) {}
-	rpc GetCustomer (Request) returns (Customer) {}
+	// rpc GetCustomer (Request) returns (Customer) {}
 }

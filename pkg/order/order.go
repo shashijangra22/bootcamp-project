@@ -22,19 +22,19 @@ func GetAll(c *gin.Context) {
 }
 
 // To Add a new order
-func Add(c *gin.Context) {
-	req := &Order{}
+// func Add(c *gin.Context) {
+// 	req := &Order{}
 
-	res, err := OSC.AddOrder(c, req)
+// 	res, err := OSC.AddOrder(c, req)
 
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{
-			"error": err.Error(),
-		})
-		return
-	}
+// 	if err != nil {
+// 		c.JSON(http.StatusInternalServerError, gin.H{
+// 			"error": err.Error(),
+// 		})
+// 		return
+// 	}
 
-	c.JSON(http.StatusOK, gin.H{
-		"response": res.DummyRes,
-	})
-}
+// 	c.JSON(http.StatusOK, gin.H{
+// 		"response": res.DummyRes,
+// 	})
+// }

@@ -3,7 +3,6 @@ package main
 import (
 	"MyApp/pkg/customer"
 	"MyApp/pkg/order"
-	"MyApp/pkg/restaurant"
 	"fmt"
 	"log"
 	"net"
