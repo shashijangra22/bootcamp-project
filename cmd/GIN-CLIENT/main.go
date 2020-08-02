@@ -53,7 +53,7 @@ func main() {
 
 	apiRouter.GET("/customers", customer.GetAll)
 	apiRouter.GET("/customer/:id", customer.GetOne)
-	// apiRouter.POST("/customer", customer.Add)
+	apiRouter.POST("/customer", customer.Add)
 
 	apiRouter.GET("/restaurants", restaurant.GetAll)
 	apiRouter.GET("/restaurant/:id", restaurant.GetOne)

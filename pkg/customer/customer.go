@@ -1,6 +1,10 @@
 package customer
 
 import (
+	"MyApp/pkg/Models"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
@@ -36,19 +40,21 @@ func GetOne(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"_": res})
 }
 
-// To add new customer
-// func Add(c *gin.Context) {
-
-// 	req := &Customer{}
-// 	res, err := CSC.AddCustomer(c, req)
-
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{
-// 			"error": err.Error(),
-// 		})
-// 		return
-// 	}
-// 	c.JSON(http.StatusOK, gin.H{
-// 		"response": res.DummyRes,
-// 	})
-// }
+// client call to add new customer
+func Add(c *gin.Context) {
+	bytes, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		fmt.Println("No Data recieved", err.Error())
+	}
+	var cst Models.Customer
+	_ = json.Unmarshal(bytes, &cst)
+	req := &Customer{ID: cst.ID, Name: cst.Name, Address: cst.Address, Phone: cst.Phone}
+	res, err := CSC.AddCustomer(c, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"_": res})
+}

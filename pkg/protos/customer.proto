@@ -25,7 +25,7 @@ message NoParamRequest{
 }
 
 service CustomerService {
-	// rpc AddCustomer (Customer) returns (Customer) {}
+	rpc AddCustomer (Customer) returns (Customer) {}
 	rpc GetCustomers (NoParamRequest) returns (Customers) {}
 	rpc GetCustomer (IDRequest) returns (Customer) {}
 }

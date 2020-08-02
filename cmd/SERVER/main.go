@@ -1,6 +1,7 @@
 package main
 
 import (
+	"MyApp/pkg/Models"
 	"MyApp/pkg/customer"
 	CustomerServices "MyApp/pkg/customer/services"
 	"MyApp/pkg/order"
@@ -21,6 +22,17 @@ import (
 type server struct{}
 
 var DB *dynamodb.DynamoDB
+
+func (*server) AddCustomer(ctx context.Context, req *customer.Customer) (*customer.Customer, error) {
+	fmt.Println("AddCustomer Function called... ")
+	id := req.GetID()
+	name := req.GetName()
+	address := req.GetAddress()
+	phone := req.GetPhone()
+	cst := Models.Customer{ID: id, Name: name, Address: address, Phone: phone}
+	res := CustomerServices.AddOne(DB, cst)
+	return res, nil
+}
 
 func (*server) GetCustomer(ctx context.Context, req *customer.IDRequest) (*customer.Customer, error) {
 	fmt.Println("GetCustomer is called... ")
