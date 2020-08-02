@@ -3,6 +3,7 @@ package main
 import (
 	"MyApp/pkg/auth"
 	"MyApp/pkg/customer"
+	"MyApp/pkg/order"
 	"fmt"
 	"log"
 	"net/http"
@@ -32,7 +33,7 @@ func main() {
 	defer conn.Close()
 
 	customer.CSC = customer.NewCustomerServiceClient(conn)
-	// order.OSC = order.NewOrderServiceClient(conn)
+	order.OSC = order.NewOrderServiceClient(conn)
 	// restaurant.RSC = restaurant.NewRestaurantServiceClient(conn)
 
 	router := gin.Default()
@@ -45,7 +46,7 @@ func main() {
 
 	apiRouter.GET("/", Index)
 
-	// apiRouter.GET("/orders", order.GetAll)
+	apiRouter.GET("/orders", order.GetAll)
 	// apiRouter.POST("/order", order.Add)
 
 	apiRouter.GET("/customers", customer.GetAll)

@@ -20,7 +20,7 @@ tables:
 # rule to generate stub code from proto files
 protos:
 	protoc $(PROTO1) --go_out=plugins=grpc:.
-	# protoc $(PROTO2) --go_out=plugins=grpc:.
+	protoc $(PROTO2) --go_out=plugins=grpc:.
 	# protoc $(PROTO3) --go_out=plugins=grpc:.
 
 # rule to populate DB with sample data

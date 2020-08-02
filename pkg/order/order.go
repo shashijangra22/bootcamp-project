@@ -18,7 +18,7 @@ func GetAll(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"response": res.DummyRes})
+	c.JSON(http.StatusOK, gin.H{"_": res.Orders})
 }
 
 // To Add a new order
