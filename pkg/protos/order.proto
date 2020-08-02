@@ -31,7 +31,7 @@ message Orders{
 }
 
 service OrderService {
-    // rpc AddOrder (Order) returns (Order) {}
+    rpc AddOrder (Order) returns (Order) {}
 	rpc GetOrders (NoParamRequest) returns (Orders) {}
 	rpc GetOrder (IDRequest) returns (Order) {}
 }

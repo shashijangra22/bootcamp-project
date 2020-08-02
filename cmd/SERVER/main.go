@@ -30,8 +30,8 @@ func (*server) AddCustomer(ctx context.Context, req *customer.Customer) (*custom
 	address := req.GetAddress()
 	phone := req.GetPhone()
 	cst := Models.Customer{ID: id, Name: name, Address: address, Phone: phone}
-	res := CustomerServices.AddOne(DB, cst)
-	return res, nil
+	CustomerServices.AddOne(DB, cst)
+	return req, nil
 }
 
 func (*server) GetCustomer(ctx context.Context, req *customer.IDRequest) (*customer.Customer, error) {
@@ -47,6 +47,21 @@ func (*server) GetCustomers(ctx context.Context, req *customer.NoParamRequest) (
 	allCustomers := CustomerServices.GetAll(DB)
 	res := &customer.Customers{Customers: allCustomers}
 	return res, nil
+}
+
+func (*server) AddOrder(ctx context.Context, req *order.Order) (*order.Order, error) {
+	fmt.Println("AddOrder Function called... ")
+	itemlist := req.GetItemLine()
+	var items []Models.Item
+	for i := range itemlist {
+		items = append(items, Models.Item{
+			Name:  itemlist[i].GetName(),
+			Price: itemlist[i].GetPrice(),
+		})
+	}
+	orderDetails := Models.Order{ID: req.GetID(), C_ID: req.GetC_ID(), ItemLine: items, Price: req.GetPrice(), Discount: req.GetDiscount()}
+	OrderServices.Add(DB, orderDetails)
+	return req, nil
 }
 
 func (*server) GetOrder(ctx context.Context, req *order.IDRequest) (*order.Order, error) {

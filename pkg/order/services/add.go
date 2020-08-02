@@ -8,17 +8,17 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
-func AddOne(db *dynamodb.DynamoDB, cst Models.Customer) {
-	cstItem, err := dynamodbattribute.MarshalMap(cst)
+func Add(db *dynamodb.DynamoDB, ord Models.Order) {
+	orderDynAttr, err := dynamodbattribute.MarshalMap(ord)
 	if err != nil {
-		panic("Cannot map the values given in Customer struct for post request...")
+		panic("Cannot map the values given in Order struct for post request...")
 	}
 	params := &dynamodb.PutItemInput{
-		TableName: aws.String("customers"),
-		Item:      cstItem,
+		TableName: aws.String("orders"),
+		Item:      orderDynAttr,
 	}
 	_, err = db.PutItem(params)
 	if err != nil {
-		panic("Error in putting the customer item")
+		panic("Error in putting the order item")
 	}
 }

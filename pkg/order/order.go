@@ -1,6 +1,10 @@
 package order
 
 import (
+	"MyApp/pkg/Models"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"net/http"
 	"strconv"
 
@@ -37,20 +41,26 @@ func GetOne(c *gin.Context) {
 
 }
 
-// To Add a new order
-// func Add(c *gin.Context) {
-// 	req := &Order{}
-
-// 	res, err := OSC.AddOrder(c, req)
-
-// 	if err != nil {
-// 		c.JSON(http.StatusInternalServerError, gin.H{
-// 			"error": err.Error(),
-// 		})
-// 		return
-// 	}
-
-// 	c.JSON(http.StatusOK, gin.H{
-// 		"response": res.DummyRes,
-// 	})
-// }
+// client call to add new order
+func Add(c *gin.Context) {
+	byteContent, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		fmt.Println("Sorry no content found: ", err.Error())
+	}
+	var ord Models.Order
+	_ = json.Unmarshal(byteContent, &ord)
+	var itemline []*Item
+	for i := range ord.ItemLine {
+		itemline = append(itemline, &Item{
+			Name:  ord.ItemLine[i].Name,
+			Price: ord.ItemLine[i].Price,
+		})
+	}
+	req := &Order{ID: ord.ID, C_ID: ord.C_ID, R_ID: ord.R_ID, ItemLine: itemline, Price: ord.Price, Discount: ord.Discount}
+	res, err := OSC.AddOrder(c, req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"response": res})
+}

@@ -49,7 +49,7 @@ func main() {
 
 	apiRouter.GET("/orders", order.GetAll)
 	apiRouter.GET("/order/:id", order.GetOne)
-	// apiRouter.POST("/order", order.Add)
+	apiRouter.POST("/order", order.Add)
 
 	apiRouter.GET("/customers", customer.GetAll)
 	apiRouter.GET("/customer/:id", customer.GetOne)
