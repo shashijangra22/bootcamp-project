@@ -1,21 +1,22 @@
 package main
 
 import (
-	"MyApp/pkg/Models"
-	"MyApp/pkg/customer"
-	CustomerServices "MyApp/pkg/customer/services"
-	"MyApp/pkg/order"
-	OrderServices "MyApp/pkg/order/services"
-	"MyApp/pkg/restaurant"
-	RestaurantServices "MyApp/pkg/restaurant/services"
 	"context"
 	"fmt"
 	"log"
 	"net"
 
+	CustomerServices "github.com/shashijangra22/bootcamp-project/pkg/customer/services"
+	OrderServices "github.com/shashijangra22/bootcamp-project/pkg/order/services"
+	RestaurantServices "github.com/shashijangra22/bootcamp-project/pkg/restaurant/services"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
+	"github.com/shashijangra22/bootcamp-project/pkg/Models"
+	"github.com/shashijangra22/bootcamp-project/pkg/customer"
+	"github.com/shashijangra22/bootcamp-project/pkg/order"
+	"github.com/shashijangra22/bootcamp-project/pkg/restaurant"
 	"google.golang.org/grpc"
 )
 

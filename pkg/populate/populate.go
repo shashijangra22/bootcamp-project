@@ -1,8 +1,6 @@
 package populate
 
 import (
-	"MyApp/pkg/Err"
-	"MyApp/pkg/Models"
 	"encoding/csv"
 	"fmt"
 	"io"
@@ -12,6 +10,8 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/shashijangra22/bootcamp-project/pkg/Err"
+	"github.com/shashijangra22/bootcamp-project/pkg/Models"
 )
 
 // Read the csv file and store as a string in records variable

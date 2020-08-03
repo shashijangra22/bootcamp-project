@@ -1,11 +1,10 @@
 package services
 
 import (
-	"MyApp/pkg/Models"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
+	"github.com/shashijangra22/bootcamp-project/pkg/Models"
 )
 
 func Add(db *dynamodb.DynamoDB, ord Models.Order) {

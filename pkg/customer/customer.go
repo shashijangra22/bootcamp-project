@@ -1,7 +1,6 @@
 package customer
 
 import (
-	"MyApp/pkg/Models"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/shashijangra22/bootcamp-project/pkg/Models"
 )
 
 var CSC CustomerServiceClient

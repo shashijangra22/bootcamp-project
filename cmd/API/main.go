@@ -1,16 +1,16 @@
 package main
 
 import (
-	"MyApp/pkg/auth"
-	"MyApp/pkg/customer"
-	"MyApp/pkg/order"
-	"MyApp/pkg/restaurant"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/shashijangra22/bootcamp-project/pkg/auth"
+	"github.com/shashijangra22/bootcamp-project/pkg/customer"
+	"github.com/shashijangra22/bootcamp-project/pkg/order"
+	"github.com/shashijangra22/bootcamp-project/pkg/restaurant"
 	"google.golang.org/grpc"
 )
 

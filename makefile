@@ -6,27 +6,20 @@ TABLE1 = assets/db_schema/customers.json
 TABLE2 = assets/db_schema/orders.json
 TABLE3 = assets/db_schema/restaurants.json
 
+# RULES FOR LOCAL TESTING OF DB
 # rule to create all tables above
 tables:
 	aws dynamodb create-table --cli-input-json file://$(TABLE1) $(EP)
 	aws dynamodb create-table --cli-input-json file://$(TABLE2) $(EP)
 	aws dynamodb create-table --cli-input-json file://$(TABLE3) $(EP)
 
-# rule to generate stub code from proto files
-protos:
-	protoc pkg/protos/* --go_out=plugins=grpc:.
-
 # rule to populate DB with sample data
-populate:
+populate-db:
 	go run cmd/DB/main.go assets/sample_data
 
-# rule to run gin-API-Client
-client:
-	go run cmd/GIN-CLIENT/main.go
-
-# rule to run gRPC-Server
-server:
-	go run cmd/SERVER/main.go
+# one single rule to INIT-DB for testing APIs
+db:
+	make tables populate-db
 
 # rule to list all tables in DB
 list-tables:
@@ -39,3 +32,23 @@ show-table:
 # rule to delete a given table
 delete-table:
 	aws dynamodb delete-table --table-name $(T) $(EP)
+
+clean:
+	rm -fr bin
+
+# RULES FOR BUILDING APPLICATION
+# rule to generate stub code from proto files
+protos:
+	protoc pkg/protos/* --go_out=plugins=grpc:.
+
+# rule to run gin-API-Client
+api:
+	go build -o bin/api cmd/API/main.go
+
+# rule to run gRPC-Server
+server:
+	go build -o bin/server cmd/SERVER/main.go
+
+# one single rule to build application ready to run
+app:
+	make protos api server

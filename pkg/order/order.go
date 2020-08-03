@@ -1,7 +1,6 @@
 package order
 
 import (
-	"MyApp/pkg/Models"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
@@ -9,6 +8,7 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/shashijangra22/bootcamp-project/pkg/Models"
 )
 
 var OSC OrderServiceClient
@@ -62,5 +62,5 @@ func Add(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{"response": res})
+	c.JSON(http.StatusOK, gin.H{"_": res})
 }

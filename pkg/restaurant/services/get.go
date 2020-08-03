@@ -1,8 +1,6 @@
 package services
 
 import (
-	"MyApp/pkg/Models"
-	"MyApp/pkg/restaurant"
 	"fmt"
 	"os"
 
@@ -10,6 +8,8 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/aws/aws-sdk-go/service/dynamodb/expression"
+	"github.com/shashijangra22/bootcamp-project/pkg/Models"
+	"github.com/shashijangra22/bootcamp-project/pkg/restaurant"
 )
 
 func GetOne(db *dynamodb.DynamoDB, id int64) *restaurant.Restaurant {
