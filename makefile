@@ -41,14 +41,18 @@ clean:
 protos:
 	protoc pkg/protos/* --go_out=plugins=grpc:.
 
-# rule to run gin-API-Client
+# rule to build gin-API-Client
 api:
 	go build -o bin/api cmd/API/main.go
 
-# rule to run gRPC-Server
+# rule to build gRPC-Server
 server:
 	go build -o bin/server cmd/SERVER/main.go
 
 # one single rule to build application ready to run
 app:
 	make protos api server
+
+# one single rule to buid application ready to run on linux
+app-linux:
+	env GOOS=linux make app
