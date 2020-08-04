@@ -9,13 +9,13 @@ Repository for bootcamp-project
 -  Start the Server : `bin/server`
 -  Start the API : `bin/api`
 
-### To Perform Unit Testing :
-- Customer API Testing: run `make tests`
+### To Perform Testing :
+- API Testing: run `make api-tests`
 
 ### EndPoints exposed by the API on http://localhost:9001
 
-- `POST /login`                 Sign in the Admin to use the API
-- `GET /api`                    HomePage
+- `POST /login`                     Sign in the Admin to use the API
+- `GET /api`                        HomePage
 - `GET /api/customers`              Get all customers
 - `GET /api/customer/{cid}`         Get a particular customer
 - `POST /api/customer`              Add a new customer

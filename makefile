@@ -62,3 +62,6 @@ docker-server:
 
 docker-api:
 	docker build -f Dockerfile.api mygoapp-api .
+
+api-tests:
+	go test cmd/API -coverprofile=coverage.out

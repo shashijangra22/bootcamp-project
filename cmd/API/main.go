@@ -61,12 +61,12 @@ func main() {
 	order.OSC = order.NewOrderServiceClient(conn)
 	restaurant.RSC = restaurant.NewRestaurantServiceClient(conn)
 
-	router := SetupRoutes()
+	router := SetupRoutes(true) // called if flag = true to enable authentication
 
 	router.Run("localhost:9001")
 }
 
-func SetupRoutes() *gin.Engine {
+func SetupRoutes(authFlag bool) *gin.Engine {
 	router := gin.Default()
 	router.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	loginRouter := router.Group("/login")
@@ -74,7 +74,10 @@ func SetupRoutes() *gin.Engine {
 
 	apiRouter := router.Group("/api")
 	apiRouter.Use(apiHitCountTracker)
-	apiRouter.Use(auth.VerifyUser)
+
+	if authFlag {
+		apiRouter.Use(auth.VerifyUser)
+	}
 
 	apiRouter.GET("/", Index)
 

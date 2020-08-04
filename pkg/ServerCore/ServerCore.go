@@ -36,7 +36,7 @@ var secret AWS_STRUCT
 func createDBSession(filename string) *dynamodb.DynamoDB {
 	secretsFile, err := os.Open(filename)
 	if err != nil {
-		fmt.Println("Error opening secrets.json!")
+		fmt.Println("Error opening secrets.json! from path: ", filename)
 		os.Exit(1)
 	}
 	defer secretsFile.Close()
