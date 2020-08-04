@@ -26,7 +26,7 @@ func GetOne(db *dynamodb.DynamoDB, id int64) *customer.Customer {
 		ExpressionAttributeValues: expr.Values(),
 		KeyConditionExpression:    expr.KeyCondition(),
 		ProjectionExpression:      expr.Projection(),
-		TableName:                 aws.String("customers"),
+		TableName:                 aws.String("Team2-CUSTOMERS"),
 	}
 	res, err := db.Query(params)
 	var customerDetails []Models.Customer
@@ -56,7 +56,7 @@ func GetAll(db *dynamodb.DynamoDB) []*customer.Customer {
 		ExpressionAttributeValues: expr.Values(),
 		FilterExpression:          expr.Filter(),
 		ProjectionExpression:      expr.Projection(),
-		TableName:                 aws.String("customers"),
+		TableName:                 aws.String("Team2-CUSTOMERS"),
 	}
 	// Make the DynamoDB Query API call
 	result, err := db.Scan(params)

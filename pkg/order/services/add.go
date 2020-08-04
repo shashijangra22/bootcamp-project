@@ -13,7 +13,7 @@ func Add(db *dynamodb.DynamoDB, ord Models.Order) {
 		panic("Cannot map the values given in Order struct for post request...")
 	}
 	params := &dynamodb.PutItemInput{
-		TableName: aws.String("orders"),
+		TableName: aws.String("Team2-ORDERS"),
 		Item:      orderDynAttr,
 	}
 	_, err = db.PutItem(params)

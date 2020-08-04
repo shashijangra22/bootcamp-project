@@ -13,7 +13,7 @@ func AddOne(db *dynamodb.DynamoDB, cst Models.Customer) {
 		panic("Cannot map the values given in Customer struct for post request...")
 	}
 	params := &dynamodb.PutItemInput{
-		TableName: aws.String("customers"),
+		TableName: aws.String("Team2-CUSTOMERS"),
 		Item:      cstItem,
 	}
 	_, err = db.PutItem(params)

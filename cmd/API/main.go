@@ -7,12 +7,35 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/shashijangra22/bootcamp-project/pkg/auth"
 	"github.com/shashijangra22/bootcamp-project/pkg/customer"
 	"github.com/shashijangra22/bootcamp-project/pkg/order"
 	"github.com/shashijangra22/bootcamp-project/pkg/restaurant"
 	"google.golang.org/grpc"
 )
+
+var (
+	cpuTemp = prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "cpu_temperature_in_celsius",
+		Help: "Current teamperature of CPU in degree celsius",
+	})
+	apiHitcount = prometheus.NewGauge(prometheus.GaugeOpts{
+		Name: "total_api_hit_count",
+		Help: "Number of times APIs were hitted",
+	})
+)
+
+func init() {
+	prometheus.MustRegister(cpuTemp)
+	prometheus.MustRegister(apiHitcount)
+}
+
+func apiHitCountTracker(c *gin.Context) {
+	apiHitcount.Inc()
+	c.Next()
+}
 
 // homepage of API
 func Index(c *gin.Context) {
@@ -23,8 +46,9 @@ func Index(c *gin.Context) {
 
 func main() {
 
+	cpuTemp.Set(65.3)
 	fmt.Println("Hello from the ginAPI :)")
-	conn, err := grpc.Dial("localhost:5051", grpc.WithInsecure())
+	conn, err := grpc.Dial("0.0.0.0:5051", grpc.WithInsecure())
 
 	if err != nil {
 		log.Fatalf("Sorry client cannot talk to server: %v", err)
@@ -37,12 +61,19 @@ func main() {
 	order.OSC = order.NewOrderServiceClient(conn)
 	restaurant.RSC = restaurant.NewRestaurantServiceClient(conn)
 
-	router := gin.Default()
+	router := SetupRoutes()
 
+	router.Run("localhost:9001")
+}
+
+func SetupRoutes() *gin.Engine {
+	router := gin.Default()
+	router.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	loginRouter := router.Group("/login")
 	loginRouter.POST("/", auth.Login)
 
 	apiRouter := router.Group("/api")
+	apiRouter.Use(apiHitCountTracker)
 	apiRouter.Use(auth.VerifyUser)
 
 	apiRouter.GET("/", Index)
@@ -57,7 +88,6 @@ func main() {
 
 	apiRouter.GET("/restaurants", restaurant.GetAll)
 	apiRouter.GET("/restaurant/:id", restaurant.GetOne)
-	// apiRouter.POST("/restaurant", restaurant.Add)
-
-	router.Run("localhost:9001")
+	// apiRouter.POST("/restaurant", restaurant.Add) [TODO]
+	return router
 }

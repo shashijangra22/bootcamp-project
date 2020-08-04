@@ -33,18 +33,18 @@ func readCSV(filename string) [][]string {
 	return records
 }
 
-func Customers(db *dynamodb.DynamoDB, filename string) {
+func Customers(db *dynamodb.DynamoDB, filename string, tableName string) {
 	fmt.Println("Populating Customer table with " + filename)
 
 	// Get table items from customers.csv
 	records := readCSV(filename)
-	customerList := clubCustomers(records)
+	customerList := clubCustomers(records)[:100]
 
 	for _, customer := range customerList {
 		customerItem, err := dynamodbattribute.MarshalMap(customer)
 		Err.CheckError(err)
 		params := &dynamodb.PutItemInput{
-			TableName: aws.String("customers"),
+			TableName: aws.String(tableName),
 			Item:      customerItem,
 		}
 		_, err = db.PutItem(params)
@@ -54,19 +54,19 @@ func Customers(db *dynamodb.DynamoDB, filename string) {
 	fmt.Println("Done")
 }
 
-func Orders(db *dynamodb.DynamoDB, filename string) {
+func Orders(db *dynamodb.DynamoDB, filename string, tableName string) {
 	fmt.Println("Populating Orders table with " + filename)
 
 	// Get table items from orders.csv
 	records := readCSV(filename)
-	// just taking first 1000 orders (reason: very slow operation)
-	orderList := clubOrders(records)[:1000]
+	// just taking first 100 orders (reason: very slow operation)
+	orderList := clubOrders(records)[:100]
 
 	for _, order := range orderList {
 		orderItem, err := dynamodbattribute.MarshalMap(order)
 		Err.CheckError(err)
 		params := &dynamodb.PutItemInput{
-			TableName: aws.String("orders"),
+			TableName: aws.String(tableName),
 			Item:      orderItem,
 		}
 		_, err = db.PutItem(params)
@@ -76,7 +76,7 @@ func Orders(db *dynamodb.DynamoDB, filename string) {
 	fmt.Println("Done")
 }
 
-func Restaurants(db *dynamodb.DynamoDB, filename string) {
+func Restaurants(db *dynamodb.DynamoDB, filename string, tableName string) {
 	fmt.Println("Populating Restaurant table with " + filename)
 
 	// Get table items from restaurants.csv
@@ -87,7 +87,7 @@ func Restaurants(db *dynamodb.DynamoDB, filename string) {
 		restaurantItem, err := dynamodbattribute.MarshalMap(restaurant)
 		Err.CheckError(err)
 		params := &dynamodb.PutItemInput{
-			TableName: aws.String("restaurants"),
+			TableName: aws.String(tableName),
 			Item:      restaurantItem,
 		}
 		_, err = db.PutItem(params)
