@@ -63,5 +63,8 @@ docker-server:
 docker-api:
 	docker build -f Dockerfile.api -t mygoapp-api .
 
+docker-net:
+	docker network create -d bridge --subnet 192.168.0.0/24 --gateway 192.168.0.1 mynet
+
 api-tests:
 	go test cmd/API -coverprofile=coverage.out
