@@ -58,10 +58,10 @@ app-linux:
 	env GOOS=linux make app
 
 docker-server:
-	docker build -f Dockerfile.server mygoapp-server .
+	docker build -f Dockerfile.server -t mygoapp-server .
 
 docker-api:
-	docker build -f Dockerfile.api mygoapp-api .
+	docker build -f Dockerfile.api -t mygoapp-api .
 
 api-tests:
 	go test cmd/API -coverprofile=coverage.out
