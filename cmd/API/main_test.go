@@ -101,7 +101,7 @@ func TestAddOrderPass(t *testing.T) {
 	var ord io.Reader = GetAnOrderItem()
 	order.OSC = order.NewOrderServiceClient(conn)
 	w := performRequest(router, ord, "POST", "/api/order")
-	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, http.StatusCreated, w.Code)
 
 }
 func TestAddOrderFail(t *testing.T) {
@@ -114,7 +114,7 @@ func TestAddOrderFail(t *testing.T) {
 	var ord io.Reader = strings.NewReader("")
 	order.OSC = order.NewOrderServiceClient(conn)
 	w := performRequest(router, ord, "POST", "/api/order")
-	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, http.StatusCreated, w.Code)
 }
 
 func TestGetAllCustomers(t *testing.T) {
@@ -153,7 +153,7 @@ func TestAddCustomer(t *testing.T) {
 	cst := GetACustomerItem()
 	customer.CSC = customer.NewCustomerServiceClient(conn)
 	w := performRequest(router, cst, "POST", "/api/customer")
-	assert.Equal(t, http.StatusOK, w.Code)
+	assert.Equal(t, http.StatusCreated, w.Code)
 }
 
 func TestGetAllRestaurants(t *testing.T) {

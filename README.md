@@ -1,6 +1,8 @@
 # bootcamp-project
 Repository for bootcamp-project
 
+![Screenshot](assets/arch.png)
+
 ### To run this project, follow the below steps :
 -  Clone this repo : `git clone github.com/shashijangra22/bootcamp-project`
 -  Make sure u have an instance of dynamodb running on port 8000.
